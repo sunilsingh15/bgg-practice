@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="${game.name}"></title>
+</head>
+
+<body>
+    <table data-th-object="${game}">
+        <tr>
+            <td>Image:</td>
+            <td><img th:src="*{image}" alt=""></td>
+        </tr>
+        <tr>
+            <td>Game ID:</td>
+            <td data-th-text="*{gid}"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td data-th-text="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Year of Release:</td>
+            <td data-th-text="*{year}"></td>
+        </tr>
+        <tr>
+            <td>Ranking:</td>
+            <td data-th-text="*{ranking}"></td>
+        </tr>
+        <tr>
+            <td>Users Rated:</td>
+            <td data-th-text="${game.getUsersRated()}"></td>
+        </tr>
+        <tr>
+            <td>URL:</td>
+            <td><a th:href="${game.url}"><span data-th-text="${game.url}"></span></a></td>
+        </tr>
+    </table>
+
+    <h2>Comments</h2>
+    <table>
+        <thead style="text-align: center;">
+            <td><strong>ID</strong></td>
+            <td><strong>User</strong></td>
+            <td><strong>Rating</strong></td>
+            <td><strong>Comment</strong></td>
+        </thead>
+        <tr data-th-each="comment : ${comments}" style="text-align: center;">
+            <td data-th-text="${comment.getId()}"></td>
+            <td data-th-text="${comment.user}"></td>
+            <td data-th-text="${comment.rating}"></td>
+            <td data-th-text="${comment.getC_text}"></td>
+        </tr>
+        
+    </table>
+
+    <h2>Add a comment</h2>
+    <form action="/comment" method="post">
+        <input type="hidden" name="gid" data-th-value="${game.gid}" />
+        <table>
+            <tr>
+                <td>User: </td>
+                <td><input type="text" name="user"></td>
+            </tr>
+            <tr>
+                <td>Rating: </td>
+                <td><input type="number" min="1" max="10" name="rating"></td>
+            </tr>
+            <tr>
+                <td>Text: </td>
+                <td><textarea id="" cols="30" rows="10" name="c_text"></textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
